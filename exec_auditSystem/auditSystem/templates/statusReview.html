@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>status-review</title>
+                {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="{% static 'css/statusReview.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nav2.css' %}">
+    </head>
+
+    <body>
+        <div id="nav">
+            <li><a href="{% url 'admin' %}" style="color: #FABEBE;">ADMIN</a></li>
+            <li><a href="{% url 'profile' %}" >PROFILE</a></li>
+            <li><a href="{% url 'statusReview' %}" style="color: #05529B;">STATUS REVIEW</a> </li>
+        </div>  
+
+        <div id="wrap">
+
+        <div id="pagename">STATUS EVENTS REVIEW</div>
+
+        <div class="empTable">
+            <table id="employeeTable" style="text-align:center;">
+                <tr class = "emp-list">
+                    <th id = "status">Status</th>
+                    <th id="degree">Degree</th>
+                    <th id="name">Name</th>
+                    <th>Department</th>
+                </tr>
+
+                {% for row in sql %}
+                <tr class = "emp-list">
+                    {% if row.0 == 'green' %}
+                    <td>
+                        <div id="colorMean" style="background-color:#00BF63;">LOW</div>
+                    </td>
+                    {% elif row.0 == 'yellow' %}
+                    <td>
+                        <div id="colorMean" style="background-color:#FFDE59">MEDIUM</div>
+                    </td>
+                    {% else %}
+                    <td>
+                        <div id="colorMean" style="background-color:#FF3131">HIGH</div>
+                    </td>
+                    {% endif %}
+                    <td id="name">{{row.1}}</td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.3}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        </div>
+    </body>
+</html>

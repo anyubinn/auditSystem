@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>main</title>
+                {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/nav2.css' %}">
+
+
+</head>
+<body>
+    <div id="nav">
+      <li><a href="{% url 'statusReview' %}">STATUS REVIEW</a> </li>
+      <li><a href="{% url 'profile' %}">PROFILE</a></li>
+      <li><a href="{% url 'admin' %}">ADMIN</a></li>
+    </div>
+
+    <h1 id="pagename">RISK STATUS DASHBOARD</h1></body>
+    <br>
+
+
+    <div id="wrap">
+        <div class="statusbody">
+            <div class="bodyleft">
+                <div class="datetime-container">
+                <p id="current-date"></p>
+             </div>
+            <br>
+            <br>
+            <div class="status">
+                {% for row in result %}
+                <div id="colorStatus">
+                    <p>{{row.Total_Employees}} PERSON LOW RISK</p>
+                    {% if row.st_color  == 'green' %}
+                    <td>
+                        <div id="colorMean" style="background-color:#00BF63;">LOW</div>
+                    </td>
+                    {% elif row.st_color  == 'yellow' %}
+                    <td>
+                        <div id="colorMean" style="background-color:#FFDE59">MEDIUM</div>
+                    </td>
+                    {% else %}
+                    <td>
+                        <div id="colorMean" style="background-color:#FF3131">HIGH</div>
+                    </td>
+                    {% endif %}
+                    <hr style="border: solid 1px white;">
+                </div>
+                <br>
+                <br>
+                {% endfor %}
+            </div>
+            </div>
+            <div class="bodyright">
+                <div class="chart">
+                    <div class="right-section">
+                     <!-- 차트  -->
+                     <canvas id="donutChart" width="500" height="500"></canvas>
+
+                    {% load static %}
+                        <script>
+                            const value=[
+                            {% for row in result %}
+                            '{{ row.Total_Employees|default:"0"}}',
+                            {% endfor %}
+                            ];
+                        </script>
+                    <script src="{% static 'js/main.js' %}"></script>
+                    </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

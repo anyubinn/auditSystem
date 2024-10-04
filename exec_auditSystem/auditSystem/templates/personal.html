@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>personal</title>
+                {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="{% static 'css/personal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nav2.css' %}">
+    </head>
+
+    <body>
+        <div id="nav">
+            <li><a href="{% url 'signout' %}" style="color: #FABEBE;">LOGOUT</a></li>
+            <li><a href="{% url 'profile' %}" style="color: #05529B;">PROFILE</a></li>
+            <li><a href="{% url 'statusReview' %}">STATUS REVIEW</a> </li>
+        </div>  
+
+        <div id="pagename">
+            PROFILE REVIEW : 
+            <span id="personName">{{employee.0}}</p>
+        </div>
+
+        <div id="person">
+            {% load static %}
+            <img src="{% static 'img/personalImg.png' %}" align="center" />
+            <div id="nameAndStatus">
+                <span id="name">{{employee.0}}</span>
+                {% if employee.1 == 'low' %}
+                    <span>
+                        <div id="colorMean" style="background-color:#00BF63;">LOW</div>
+                    </span>
+                    {% elif employee.1 == 'medium' %}
+                    <span>
+                        <div id="colorMean" style="background-color:#FFDE59">MEDIUM</div>
+                    </span>
+                    {% else %}
+                    <span>
+                        <div id="colorMean" style="background-color:#FF3131">HIGH</div>
+                    </span>
+                    {% endif %}
+            </div>
+            </body>
+            <div class="personInfo">
+                <li>Employee number: {{employee.2}}</li>
+                <li>Department: {{employee.3}}</li>
+                <li>Position: {{employee.4}}</li>
+                <li>Gender: {{employee.6}}</li>
+                <li>Education degree: {{employee.5}}</li>
+                <li>History: {% if employee.7 and employee.8 and employee.9 %}
+                        loan, crime, gambling
+                    {% elif employee.7 and employee.8 %}
+                        loan, crime
+                    {% elif employee.7 and employee.9 %}
+                        loan, gambling
+                    {% elif employee.8 and employee.9 %}
+                        crime, gambling
+                    {% elif employee.7 %}
+                        loan
+                    {% elif employee.8 %}
+                        crime
+                    {% elif employee.9 %}
+                        gambling
+                    {% else %}
+                        Not history
+                    {% endif %}</li>
+
+            </div>
+        </div>
+
+
+
+        
+
+    </body>
+</html>

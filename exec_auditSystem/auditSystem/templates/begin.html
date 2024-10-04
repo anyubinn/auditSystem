@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>begin page</title>
+            {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="{% static 'css/begin.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- 왼쪽에 이미지 -->
+        <div class="left-section">
+            {% load static %}
+            <img src="{% static 'img/logo.png'%}" alt="logo image">
+        </div>
+    
+        <!-- 오른쪽 상단에 "Know Your Employee" -->
+        <div class="right-section">
+            <h1 class="header">Know <br> Your <br> Employee</h1>
+            <button type="button" onclick="redirectToLoginPage()">LOGIN</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    function redirectToLoginPage() {
+        window.location.href = "signin/";
+    }
+</script>
+</html>
+

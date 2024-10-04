@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile</title>
+                {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nav2.css' %}">
+    </head>
+
+    <body>
+        <div id="nav">
+            <li><a href="{% url 'admin' %}" style="color: #FABEBE;">ADMIN</a></li>
+            <li><a href="{% url 'profile' %}" style="color: #05529B;">PROFILE</a></li>
+            <li><a href="{% url 'statusReview' %}">STATUS REVIEW</a> </li>
+        </div>  
+
+        
+        <div id="wrap">
+        <div id="pagename">PROFILE</div>
+            <form class="search" action="{% url 'search' %}" method="get">
+                {% csrf_token %}
+                <div class="search">
+                    <input type="text" name="name" id="name" placeholder="Search Term">
+                    <button type="submit">
+                        <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="empTable">
+            <table id="employeeTable" style="text-align:center;">
+                <tr class = "emp-list">
+                    <th id="status">Status</th>
+                    <th id="name">Employee Name</th>
+                    <th id="department">Department</th>
+                    <th>Position</th>
+                    <th>Contact Information</th>
+                </tr>
+                {% for row in sql %}
+                <tr class = "emp-list">
+                    {% if row.0 == 'low' %}
+                    <td>
+                        <div id="colorMean" style="background-color:#00BF63;">LOW</div>
+                    </td>
+                    {% elif row.0 == 'medium' %}
+                    <td>
+                        <div id="colorMean" style="background-color:#FFDE59">MEDIUM</div>
+                    </td>
+                    {% else %}
+                    <td>
+                        <div id="colorMean" style="background-color:#FF3131">HIGH</div>
+                    </td>
+                    {% endif %}
+                    <td id="name"><a href="/profile/{{row.7}}">{{row.1}}</a></td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.3}}</td>
+                    <td>
+                        {% if row.4 %}
+                            {{ row.4 }}<br>
+                        {% endif %}
+                        {% if row.5 %}
+                            {{ row.5 }}<br>
+                        {% endif %}
+                        {% if row.6 %}
+                            {{ row.6 }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            </div>
+        </div>
+    </body>
+</html>
